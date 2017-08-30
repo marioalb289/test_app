@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="datacenterModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_formal" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="contrasena" Type="text" Nullable="false" />
+          <Property Name="correo" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="area" Type="int" Nullable="false" />
+          <Property Name="privilegios" Type="int" Nullable="false" />
+          <Property Name="priv_sigi" Type="int" Nullable="false" />
+          <Property Name="priv_sui" Type="int" Nullable="false" />
+          <Property Name="priv_sia" Type="int" Nullable="false" />
+          <Property Name="titular" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="datacenterModelStoreContainer">
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="datacenter2" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="datacenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_formal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="area" Type="Int32" Nullable="false" />
+          <Property Name="privilegios" Type="Int32" Nullable="false" />
+          <Property Name="priv_sigi" Type="Int32" Nullable="false" />
+          <Property Name="priv_sui" Type="Int32" Nullable="false" />
+          <Property Name="priv_sia" Type="Int32" Nullable="false" />
+          <Property Name="titular" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="datacenterEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="datacenterModelStoreContainer" CdmEntityContainer="datacenterEntities">
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="datacenterModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nombre_formal" ColumnName="nombre_formal" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="privilegios" ColumnName="privilegios" />
+                <ScalarProperty Name="priv_sigi" ColumnName="priv_sigi" />
+                <ScalarProperty Name="priv_sui" ColumnName="priv_sui" />
+                <ScalarProperty Name="priv_sia" ColumnName="priv_sia" />
+                <ScalarProperty Name="titular" ColumnName="titular" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
