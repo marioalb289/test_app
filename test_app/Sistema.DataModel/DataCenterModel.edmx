@@ -4,7 +4,141 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="datacenterModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="datacenterModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.5" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="areas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cosas_requi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_cosa" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="area_cosa" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lugares">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="text" Nullable="false" />
+          <Property Name="conta" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requerimientos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="lista_area_11" Type="text" />
+          <Property Name="lista_area_10" Type="text" />
+          <Property Name="lista_area_6" Type="text" />
+          <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="id_ref" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_contador_folios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_documentos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="respuesta" Type="bool" />
+          <Property Name="ruta" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="create_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="updated_by" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_oficios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_oficio" Type="enum" />
+          <Property Name="folio" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="folio_institucion" Type="varchar" MaxLength="20" />
+          <Property Name="origen" Type="enum" />
+          <Property Name="id_usuario_emisor" Type="int" />
+          <Property Name="nombre_emisor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="institucion_emisor" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="cargo" Type="varchar" MaxLength="50" />
+          <Property Name="asunto_emisor" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="asunto_receptor" Type="varchar" MaxLength="50" />
+          <Property Name="respuesta" Type="bool" />
+          <Property Name="respondido" Type="int" />
+          <Property Name="destino" Type="enum" />
+          <Property Name="vinculado" Type="int" />
+          <Property Name="fecha_recepcion" Type="date" />
+          <Property Name="hora_recepcion" Type="time" Precision="0" />
+          <Property Name="comentarios" Type="varchar" MaxLength="255" />
+          <Property Name="created_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="created_by" Type="int" Nullable="false" />
+          <Property Name="updated_at" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="updated_by" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_oficios_documentos_recepcion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="parent_id" Type="int" />
+          <Property Name="id_oficio" Type="int" Nullable="false" />
+          <Property Name="id_documentos" Type="int" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="ccp" Type="int" />
+          <Property Name="fecha_visto" Type="datetime" Precision="0" />
+          <Property Name="estatus_inicial" Type="enum" />
+          <Property Name="estatus_final" Type="enum" />
+          <Property Name="create_at" Type="datetime" Precision="0" />
+          <Property Name="created_by" Type="int" />
+          <Property Name="update_at" Type="datetime" Precision="0" />
+          <Property Name="updated_by" Type="int" />
+        </EntityType>
+        <EntityType Name="sigi_reportes_param">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" />
+          <Property Name="params" Type="text" />
+          <Property Name="active" Type="int" />
+          <Property Name="created_at" Type="date" />
+          <Property Name="created_by" Type="int" />
+        </EntityType>
+        <EntityType Name="solicitudes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imagen" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="nombre_evento" Type="text" Nullable="false" />
+          <Property Name="lugar_evento" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="fecha_evento" Type="date" Nullable="false" />
+          <Property Name="fecha_evento_fin" Type="date" Nullable="false" />
+          <Property Name="hora_evento_ini" Type="time" Precision="0" Nullable="false" />
+          <Property Name="hora_evento_fin" Type="time" Precision="0" Nullable="false" />
+          <Property Name="area_evento" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="usuario_solicita" Type="int" Nullable="false" />
+          <Property Name="fecha_soliciud" Type="datetime" Precision="0" Nullable="false" />
+          <Property Name="color_fondo" Type="varchar" MaxLength="255" />
+          <Property Name="color_texto" Type="varchar" MaxLength="255" />
+          <Property Name="tipo_agenda" Type="int" Nullable="false" />
+          <Property Name="ediciones" Type="text" Nullable="false" />
+          <Property Name="publica" Type="int" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="usuarios">
           <Key>
             <PropertyRef Name="id" />
@@ -24,10 +158,19 @@
           <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="datacenterModelStoreContainer">
+          <EntitySet Name="areas" EntityType="Self.areas" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="cosas_requi" EntityType="Self.cosas_requi" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="lugares" EntityType="Self.lugares" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="requerimientos" EntityType="Self.requerimientos" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="sigi_contador_folios" EntityType="Self.sigi_contador_folios" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="sigi_documentos" EntityType="Self.sigi_documentos" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="sigi_oficios" EntityType="Self.sigi_oficios" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="sigi_oficios_documentos_recepcion" EntityType="Self.sigi_oficios_documentos_recepcion" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="sigi_reportes_param" EntityType="Self.sigi_reportes_param" Schema="datacenter2" store:Type="Tables" />
+          <EntitySet Name="solicitudes" EntityType="Self.solicitudes" Schema="datacenter2" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="datacenter2" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="datacenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -51,7 +194,151 @@
         </EntityType>
         <EntityContainer Name="datacenterEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <EntitySet Name="areas" EntityType="datacenterModel.areas" />
+          <EntitySet Name="cosas_requi" EntityType="datacenterModel.cosas_requi" />
+          <EntitySet Name="lugares" EntityType="datacenterModel.lugares" />
+          <EntitySet Name="requerimientos" EntityType="datacenterModel.requerimientos" />
+          <EntitySet Name="sigi_contador_folios" EntityType="datacenterModel.sigi_contador_folios" />
+          <EntitySet Name="sigi_documentos" EntityType="datacenterModel.sigi_documentos" />
+          <EntitySet Name="sigi_oficios" EntityType="datacenterModel.sigi_oficios" />
+          <EntitySet Name="sigi_oficios_documentos_recepcion" EntityType="datacenterModel.sigi_oficios_documentos_recepcion" />
+          <EntitySet Name="sigi_reportes_param" EntityType="datacenterModel.sigi_reportes_param" />
+          <EntitySet Name="solicitudes" EntityType="datacenterModel.solicitudes" />
         </EntityContainer>
+        <EntityType Name="areas">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="abreviatura" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="cosas_requi">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_cosa" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="area_cosa" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="lugares">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="conta" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="requerimientos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="lista_area_11" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="lista_area_10" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="lista_area_6" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="id_ref" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_contador_folios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="sigi_documentos">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="respuesta" Type="Boolean" />
+          <Property Name="ruta" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="create_at" Type="DateTime" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" />
+          <Property Name="updated_by" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_oficios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_oficio" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="folio" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="folio_institucion" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="origen" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="id_usuario_emisor" Type="Int32" />
+          <Property Name="nombre_emisor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="institucion_emisor" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cargo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="asunto_emisor" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="asunto_receptor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="respuesta" Type="Boolean" />
+          <Property Name="respondido" Type="Int32" />
+          <Property Name="destino" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="vinculado" Type="Int32" />
+          <Property Name="fecha_recepcion" Type="DateTime" />
+          <Property Name="hora_recepcion" Type="Time" />
+          <Property Name="comentarios" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Nullable="false" />
+          <Property Name="created_by" Type="Int32" Nullable="false" />
+          <Property Name="updated_at" Type="DateTime" Nullable="false" />
+          <Property Name="updated_by" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sigi_oficios_documentos_recepcion">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="parent_id" Type="Int32" />
+          <Property Name="id_oficio" Type="Int32" Nullable="false" />
+          <Property Name="id_documentos" Type="Int32" Nullable="false" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="ccp" Type="Int32" />
+          <Property Name="fecha_visto" Type="DateTime" />
+          <Property Name="estatus_inicial" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="estatus_final" Type="String" MaxLength="65532" FixedLength="false" Unicode="false" />
+          <Property Name="create_at" Type="DateTime" />
+          <Property Name="created_by" Type="Int32" />
+          <Property Name="update_at" Type="DateTime" />
+          <Property Name="updated_by" Type="Int32" />
+        </EntityType>
+        <EntityType Name="sigi_reportes_param">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" />
+          <Property Name="params" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="active" Type="Int32" />
+          <Property Name="created_at" Type="DateTime" />
+          <Property Name="created_by" Type="Int32" />
+        </EntityType>
+        <EntityType Name="solicitudes">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imagen" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nombre_evento" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="lugar_evento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="fecha_evento" Type="DateTime" Nullable="false" />
+          <Property Name="fecha_evento_fin" Type="DateTime" Nullable="false" />
+          <Property Name="hora_evento_ini" Type="Time" Nullable="false" />
+          <Property Name="hora_evento_fin" Type="Time" Nullable="false" />
+          <Property Name="area_evento" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="usuario_solicita" Type="Int32" Nullable="false" />
+          <Property Name="fecha_soliciud" Type="DateTime" Nullable="false" />
+          <Property Name="color_fondo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="color_texto" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="tipo_agenda" Type="Int32" Nullable="false" />
+          <Property Name="ediciones" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="publica" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -74,6 +361,150 @@
                 <ScalarProperty Name="priv_sia" ColumnName="priv_sia" />
                 <ScalarProperty Name="titular" ColumnName="titular" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="areas">
+            <EntityTypeMapping TypeName="datacenterModel.areas">
+              <MappingFragment StoreEntitySet="areas">
+                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cosas_requi">
+            <EntityTypeMapping TypeName="datacenterModel.cosas_requi">
+              <MappingFragment StoreEntitySet="cosas_requi">
+                <ScalarProperty Name="area_cosa" ColumnName="area_cosa" />
+                <ScalarProperty Name="nombre_cosa" ColumnName="nombre_cosa" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="lugares">
+            <EntityTypeMapping TypeName="datacenterModel.lugares">
+              <MappingFragment StoreEntitySet="lugares">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="conta" ColumnName="conta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="requerimientos">
+            <EntityTypeMapping TypeName="datacenterModel.requerimientos">
+              <MappingFragment StoreEntitySet="requerimientos">
+                <ScalarProperty Name="id_ref" ColumnName="id_ref" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="lista_area_6" ColumnName="lista_area_6" />
+                <ScalarProperty Name="lista_area_10" ColumnName="lista_area_10" />
+                <ScalarProperty Name="lista_area_11" ColumnName="lista_area_11" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sigi_contador_folios">
+            <EntityTypeMapping TypeName="datacenterModel.sigi_contador_folios">
+              <MappingFragment StoreEntitySet="sigi_contador_folios">
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sigi_documentos">
+            <EntityTypeMapping TypeName="datacenterModel.sigi_documentos">
+              <MappingFragment StoreEntitySet="sigi_documentos">
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+                <ScalarProperty Name="ruta" ColumnName="ruta" />
+                <ScalarProperty Name="respuesta" ColumnName="respuesta" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sigi_oficios">
+            <EntityTypeMapping TypeName="datacenterModel.sigi_oficios">
+              <MappingFragment StoreEntitySet="sigi_oficios">
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="updated_at" ColumnName="updated_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="hora_recepcion" ColumnName="hora_recepcion" />
+                <ScalarProperty Name="fecha_recepcion" ColumnName="fecha_recepcion" />
+                <ScalarProperty Name="vinculado" ColumnName="vinculado" />
+                <ScalarProperty Name="destino" ColumnName="destino" />
+                <ScalarProperty Name="respondido" ColumnName="respondido" />
+                <ScalarProperty Name="respuesta" ColumnName="respuesta" />
+                <ScalarProperty Name="asunto_receptor" ColumnName="asunto_receptor" />
+                <ScalarProperty Name="asunto_emisor" ColumnName="asunto_emisor" />
+                <ScalarProperty Name="cargo" ColumnName="cargo" />
+                <ScalarProperty Name="institucion_emisor" ColumnName="institucion_emisor" />
+                <ScalarProperty Name="nombre_emisor" ColumnName="nombre_emisor" />
+                <ScalarProperty Name="id_usuario_emisor" ColumnName="id_usuario_emisor" />
+                <ScalarProperty Name="origen" ColumnName="origen" />
+                <ScalarProperty Name="folio_institucion" ColumnName="folio_institucion" />
+                <ScalarProperty Name="folio" ColumnName="folio" />
+                <ScalarProperty Name="tipo_oficio" ColumnName="tipo_oficio" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sigi_oficios_documentos_recepcion">
+            <EntityTypeMapping TypeName="datacenterModel.sigi_oficios_documentos_recepcion">
+              <MappingFragment StoreEntitySet="sigi_oficios_documentos_recepcion">
+                <ScalarProperty Name="updated_by" ColumnName="updated_by" />
+                <ScalarProperty Name="update_at" ColumnName="update_at" />
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="create_at" ColumnName="create_at" />
+                <ScalarProperty Name="estatus_final" ColumnName="estatus_final" />
+                <ScalarProperty Name="estatus_inicial" ColumnName="estatus_inicial" />
+                <ScalarProperty Name="fecha_visto" ColumnName="fecha_visto" />
+                <ScalarProperty Name="ccp" ColumnName="ccp" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_documentos" ColumnName="id_documentos" />
+                <ScalarProperty Name="id_oficio" ColumnName="id_oficio" />
+                <ScalarProperty Name="parent_id" ColumnName="parent_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sigi_reportes_param">
+            <EntityTypeMapping TypeName="datacenterModel.sigi_reportes_param">
+              <MappingFragment StoreEntitySet="sigi_reportes_param">
+                <ScalarProperty Name="created_by" ColumnName="created_by" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+                <ScalarProperty Name="active" ColumnName="active" />
+                <ScalarProperty Name="params" ColumnName="params" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="solicitudes">
+            <EntityTypeMapping TypeName="datacenterModel.solicitudes">
+              <MappingFragment StoreEntitySet="solicitudes">
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="publica" ColumnName="publica" />
+                <ScalarProperty Name="ediciones" ColumnName="ediciones" />
+                <ScalarProperty Name="tipo_agenda" ColumnName="tipo_agenda" />
+                <ScalarProperty Name="color_texto" ColumnName="color_texto" />
+                <ScalarProperty Name="color_fondo" ColumnName="color_fondo" />
+                <ScalarProperty Name="fecha_soliciud" ColumnName="fecha_soliciud" />
+                <ScalarProperty Name="usuario_solicita" ColumnName="usuario_solicita" />
+                <ScalarProperty Name="area_evento" ColumnName="area_evento" />
+                <ScalarProperty Name="hora_evento_fin" ColumnName="hora_evento_fin" />
+                <ScalarProperty Name="hora_evento_ini" ColumnName="hora_evento_ini" />
+                <ScalarProperty Name="fecha_evento_fin" ColumnName="fecha_evento_fin" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="lugar_evento" ColumnName="lugar_evento" />
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

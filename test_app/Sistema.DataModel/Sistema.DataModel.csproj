@@ -63,7 +63,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="areas.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="cosas_requi.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DatabaseContext.cs" />
     <Compile Include="DataCenterLocal.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -94,7 +101,31 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataCenterModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="lugares.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="requerimientos.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sigi_contador_folios.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sigi_documentos.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sigi_oficios.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sigi_oficios_documentos_recepcion.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sigi_reportes_param.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="solicitudes.cs">
+      <DependentUpon>DataCenterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="usuarios.cs">
       <DependentUpon>DataCenterModel.tt</DependentUpon>
     </Compile>

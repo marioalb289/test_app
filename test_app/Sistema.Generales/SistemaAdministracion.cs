@@ -1,6 +1,7 @@
 ﻿using Sistema.DataModel;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,13 +10,14 @@ namespace Sistema.Generales
 {
     public class SistemaAdministracion
     {
-        public List<usuarios> getUsuarios()
+        public List<sigi_oficios> getUsuarios()
         {
             try
             {
-                using (datacenterEntities contexto = new datacenterEntities())
+                Database.SetInitializer<DatabaseContext>(new CreateDatabaseIfNotExists<DatabaseContext>());
+                using (DatabaseContext contexto = new DatabaseContext("MYSQL"))
                 {
-                    List<usuarios> listaUsuarios = (from i in contexto.usuarios orderby i.id descending select i).ToList();
+                    List<sigi_oficios> listaUsuarios = (from i in contexto.sigi_oficios orderby i.id descending select i).ToList();
                     return listaUsuarios;
                 }
             }

@@ -6,6 +6,16 @@
     <edmx:Diagrams>
       <Diagram DiagramId="dc79a77f2a4641259cfa0838d7d5d6b7" Name="Diagram1">
         <EntityTypeShape EntityType="datacenterModel.usuarios" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="datacenterModel.areas" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="datacenterModel.cosas_requi" Width="1.5" PointX="3.75" PointY="3.75" />
+        <EntityTypeShape EntityType="datacenterModel.lugares" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="datacenterModel.requerimientos" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="datacenterModel.sigi_contador_folios" Width="1.5" PointX="5.75" PointY="3.75" />
+        <EntityTypeShape EntityType="datacenterModel.sigi_documentos" Width="1.5" PointX="5.75" PointY="5.75" />
+        <EntityTypeShape EntityType="datacenterModel.sigi_oficios" Width="1.5" PointX="2.75" PointY="6.75" />
+        <EntityTypeShape EntityType="datacenterModel.sigi_oficios_documentos_recepcion" Width="1.5" PointX="7.75" PointY="0.75" />
+        <EntityTypeShape EntityType="datacenterModel.sigi_reportes_param" Width="1.5" PointX="7.75" PointY="5.75" />
+        <EntityTypeShape EntityType="datacenterModel.solicitudes" Width="1.5" PointX="7.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
