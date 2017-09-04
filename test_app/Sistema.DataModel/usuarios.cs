@@ -27,5 +27,6 @@ namespace Sistema.DataModel
         public int priv_sia { get; set; }
         public int titular { get; set; }
         public int estado { get; set; }
+        public int importado { get; set; }
     }
 }

@@ -28,36 +28,61 @@ namespace test_app
         public AgregarUsuario()
         {
             InitializeComponent();
-            sadmon = new SistemaAdministracion();
-            tsc = new TestConexion();
-            //cargarGridUsuario();
+        }
 
-            if (tsc.IsServerConnected())
+        public void recargar()
+        {
+            txtNombre.Text = "";
+            txtApellido.Text = "";
+            txtNombreFormal.Text = "";
+            txtPass1.Text = "";
+            txtPass2.Text = "";
+            txtUsuario.Text = "";
+
+            cargarGridUsuario();
+
+        }
+
+        private void AgregarUsuario_Load(object sender, EventArgs e)
+        {
+            //tsc = new TestConexion();
+            if (SistemaAdministracion.Conexion)
             {
-                this.conexion = true;
-                MessageBox.Show("Conexion Establecida");
-                cargarGridUsuario();
+                btnModoSinConexion.Text = "Modo sin Conexión";
             }
             else
             {
-                MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
-                this.conexion = false;
+                btnModoSinConexion.Text = "Modo con Conexión";
             }
+            sadmon = new SistemaAdministracion();
+            cargarGridUsuario();
 
-        }       
+            //if (tsc.IsServerConnected())
+            //{
+            //    this.conexion = true;
+            //    sadmon = new SistemaAdministracion(this.conexion);
+            //    SistemaAdministracion.Conexion = true;
+            //    MessageBox.Show("Conexion Establecida");
+            //    cargarGridUsuario();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
+            //    this.conexion = false;
+            //    sadmon = new SistemaAdministracion(this.conexion);
+            //    SistemaAdministracion.Conexion = false;
+            //    cargarGridUsuario();
+            //}
+
+            
+
+        }
 
         private void cargarGridUsuario()
         {
             try
             {
-                if (this.conexion)
-                {
-                    dgvUsuarios.DataSource = new BindingSource(sadmon.getUsuarios(), null);                    
-                }
-                else
-                {
-                    dgvUsuarios.DataSource = new BindingSource(sadmon.getUsuarios(), null);
-                }
+                dgvUsuarios.DataSource = new BindingSource(sadmon.getUsuarios(), null);
 
                 dgvUsuarios.Update();
                 dgvUsuarios.Refresh();
@@ -75,23 +100,15 @@ namespace test_app
         {
             try
             {
+                usuarios usr = new usuarios();
+                usr.nombre = txtNombre.Text;
+                usr.apellido = txtApellido.Text;
+                usr.nombre_formal = txtNombreFormal.Text;
+                usr.correo = txtUsuario.Text;
+                usr.contrasena = txtPass1.Text;
+
+                this.messageRes(sadmon.guardarUsuarios(usr));
                 
-                using (datacenterEntities contexto = new datacenterEntities())
-                {
-                    usuarios usr = new usuarios();
-                    usr.nombre = txtNombre.Text;
-                    usr.apellido = txtApellido.Text;
-                    usr.nombre_formal = txtNombreFormal.Text;
-                    usr.correo = txtUsuario.Text;
-                    usr.contrasena = txtPass1.Text;
-
-                    contexto.usuarios.Add(usr);
-                    contexto.SaveChanges();
-
-                    cargarGridUsuario();
-
-                    MessageBox.Show("Datos Guardados Correctamente");
-                }
                 
 
             }
@@ -103,6 +120,25 @@ namespace test_app
             
                        
 
+        }
+
+        public void messageRes(int res)
+        {
+            switch (res)
+            {
+                case 1:
+                    MessageBox.Show("Datos Guardados correctamente");
+                    this.recargar();
+                    break;
+                case 2:
+                    MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
+                    this.recargar();
+                    break;
+                case 3:
+                    MessageBox.Show("Error al Guardar los Datos.");
+                    break;
+            }
+            
         }
 
         public bool IsServerConnected()
@@ -144,6 +180,48 @@ namespace test_app
             BuscarActualizaciones update = new BuscarActualizaciones();
             update.UpdateApplication(downloadStatus);
             //this.UpdateApplication();
+        }
+
+        private void btnSincronizar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (sadmon.sincronizarDatos())
+                {
+                    MessageBox.Show("Datos Sincronizados Correctamentes");
+                    this.recargar();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
+        }
+
+        private void btnModoSinConexion_Click(object sender, EventArgs e)
+        {
+            if (SistemaAdministracion.Conexion)
+            {
+                SistemaAdministracion.Conexion = false;
+                MessageBox.Show("Trabajando en modo sin Conexión");
+                btnModoSinConexion.Text = "Modo con Conexión";
+            }
+            else
+            {
+                TestConexion test = new TestConexion();
+                if (!test.IsServerConnected())
+                {
+                    btnModoSinConexion.Text = "Modo con Conexión";
+                }
+                else
+                {
+                    btnModoSinConexion.Text = "Modo sin Conexión";
+                }
+                
+            }
+            this.recargar();
         }
     }
 }

@@ -16,6 +16,8 @@ namespace test_app
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Sistema.Generales.TestConexion test = new Sistema.Generales.TestConexion();
+            test.IsServerConnected();
             Application.Run(new AgregarUsuario());
         }
     }

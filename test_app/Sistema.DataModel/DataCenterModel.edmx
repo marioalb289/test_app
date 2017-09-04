@@ -156,6 +156,7 @@
           <Property Name="priv_sia" Type="int" Nullable="false" />
           <Property Name="titular" Type="int" Nullable="false" />
           <Property Name="estado" Type="int" Nullable="false" />
+          <Property Name="importado" Type="int" Nullable="false" />
         </EntityType>
         <EntityContainer Name="datacenterModelStoreContainer">
           <EntitySet Name="areas" EntityType="Self.areas" Schema="datacenter2" store:Type="Tables" />
@@ -174,26 +175,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="datacenterModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="usuarios">
-          <Key>
-            <PropertyRef Name="id" />
-          </Key>
-          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre_formal" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="apellido" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="contrasena" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="area" Type="Int32" Nullable="false" />
-          <Property Name="privilegios" Type="Int32" Nullable="false" />
-          <Property Name="priv_sigi" Type="Int32" Nullable="false" />
-          <Property Name="priv_sui" Type="Int32" Nullable="false" />
-          <Property Name="priv_sia" Type="Int32" Nullable="false" />
-          <Property Name="titular" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Int32" Nullable="false" />
-        </EntityType>
         <EntityContainer Name="datacenterEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
           <EntitySet Name="areas" EntityType="datacenterModel.areas" />
           <EntitySet Name="cosas_requi" EntityType="datacenterModel.cosas_requi" />
           <EntitySet Name="lugares" EntityType="datacenterModel.lugares" />
@@ -204,6 +186,7 @@
           <EntitySet Name="sigi_oficios_documentos_recepcion" EntityType="datacenterModel.sigi_oficios_documentos_recepcion" />
           <EntitySet Name="sigi_reportes_param" EntityType="datacenterModel.sigi_reportes_param" />
           <EntitySet Name="solicitudes" EntityType="datacenterModel.solicitudes" />
+          <EntitySet Name="usuarios" EntityType="datacenterModel.usuarios" />
         </EntityContainer>
         <EntityType Name="areas">
           <Key>
@@ -339,31 +322,31 @@
           <Property Name="publica" Type="Int32" Nullable="false" />
           <Property Name="estado" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_formal" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" Nullable="false" MaxLength="65535" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="area" Type="Int32" Nullable="false" />
+          <Property Name="privilegios" Type="Int32" Nullable="false" />
+          <Property Name="priv_sigi" Type="Int32" Nullable="false" />
+          <Property Name="priv_sui" Type="Int32" Nullable="false" />
+          <Property Name="priv_sia" Type="Int32" Nullable="false" />
+          <Property Name="titular" Type="Int32" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
+          <Property Name="importado" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="datacenterModelStoreContainer" CdmEntityContainer="datacenterEntities">
-          <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="datacenterModel.usuarios">
-              <MappingFragment StoreEntitySet="usuarios">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombre_formal" ColumnName="nombre_formal" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="apellido" ColumnName="apellido" />
-                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
-                <ScalarProperty Name="correo" ColumnName="correo" />
-                <ScalarProperty Name="area" ColumnName="area" />
-                <ScalarProperty Name="privilegios" ColumnName="privilegios" />
-                <ScalarProperty Name="priv_sigi" ColumnName="priv_sigi" />
-                <ScalarProperty Name="priv_sui" ColumnName="priv_sui" />
-                <ScalarProperty Name="priv_sia" ColumnName="priv_sia" />
-                <ScalarProperty Name="titular" ColumnName="titular" />
-                <ScalarProperty Name="estado" ColumnName="estado" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="areas">
             <EntityTypeMapping TypeName="datacenterModel.areas">
               <MappingFragment StoreEntitySet="areas">
@@ -504,6 +487,26 @@
                 <ScalarProperty Name="lugar_evento" ColumnName="lugar_evento" />
                 <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
                 <ScalarProperty Name="imagen" ColumnName="imagen" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="datacenterModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="importado" ColumnName="importado" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="titular" ColumnName="titular" />
+                <ScalarProperty Name="priv_sia" ColumnName="priv_sia" />
+                <ScalarProperty Name="priv_sui" ColumnName="priv_sui" />
+                <ScalarProperty Name="priv_sigi" ColumnName="priv_sigi" />
+                <ScalarProperty Name="privilegios" ColumnName="privilegios" />
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombre_formal" ColumnName="nombre_formal" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

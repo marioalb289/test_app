@@ -71,21 +71,6 @@
       <DependentUpon>DataCenterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="DatabaseContext.cs" />
-    <Compile Include="DataCenterLocal.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataCenterLocal.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataCenterLocal.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataCenterLocal.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DataCenterLocal.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataCenterLocal.edmx</DependentUpon>
-    </Compile>
     <Compile Include="DataCenterModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -129,46 +114,21 @@
     <Compile Include="usuarios.cs">
       <DependentUpon>DataCenterModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="usuarios_local.cs">
-      <DependentUpon>DataCenterLocal.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="DataCenterModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataCenterModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <EntityDeploy Include="DataCenterLocal.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataCenterLocal.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="DataCenterLocal.edmx.diagram">
-      <DependentUpon>DataCenterLocal.edmx</DependentUpon>
-    </None>
     <None Include="DataCenterModel.edmx.diagram">
       <DependentUpon>DataCenterModel.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataCenterLocal.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataCenterLocal.edmx</DependentUpon>
-      <LastGenOutput>DataCenterLocal.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataCenterLocal.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="DataCenterLocal.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataCenterLocal.edmx</DependentUpon>
-      <LastGenOutput>DataCenterLocal.cs</LastGenOutput>
-    </Content>
-    <Content Include="DataCenterLocal_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>DataCenterLocal.mdf</DependentUpon>
-    </Content>
     <Content Include="DataCenterModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataCenterModel.Context.cs</LastGenOutput>
