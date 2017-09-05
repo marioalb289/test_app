@@ -12,6 +12,7 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -24,7 +25,6 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -86,6 +86,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataCenterModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="EntityMSSQL.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityMSSQL.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityMSSQL.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityMSSQL.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntityMSSQL.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EntityMSSQL.edmx</DependentUpon>
+    </Compile>
     <Compile Include="lugares.cs">
       <DependentUpon>DataCenterModel.tt</DependentUpon>
     </Compile>
@@ -126,9 +141,23 @@
     <None Include="DataCenterModel.edmx.diagram">
       <DependentUpon>DataCenterModel.edmx</DependentUpon>
     </None>
+    <EntityDeploy Include="EntityMSSQL.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>EntityMSSQL.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="EntityMSSQL.edmx.diagram">
+      <DependentUpon>EntityMSSQL.edmx</DependentUpon>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DatabaseMSSQL.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="DatabaseMSSQL_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>DatabaseMSSQL.mdf</DependentUpon>
+    </Content>
     <Content Include="DataCenterModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>DataCenterModel.Context.cs</LastGenOutput>
@@ -138,6 +167,17 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DataCenterModel.edmx</DependentUpon>
       <LastGenOutput>DataCenterModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityMSSQL.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityMSSQL.edmx</DependentUpon>
+      <LastGenOutput>EntityMSSQL.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="EntityMSSQL.edmx.sql" />
+    <Content Include="EntityMSSQL.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>EntityMSSQL.edmx</DependentUpon>
+      <LastGenOutput>EntityMSSQL.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

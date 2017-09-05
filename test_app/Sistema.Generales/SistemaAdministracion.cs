@@ -30,7 +30,7 @@ namespace Sistema.Generales
         public string inicializarBd(bool cnx)
         {
             Database.SetInitializer<DatabaseContext>(new CreateDatabaseIfNotExists<DatabaseContext>());
-            return cnx ? "MYSQLSERVER" : "MYSQLLOCAL";
+            return cnx ? "MYSQLSERVER" : "MSSQL";
             
         }
         public List<usuarios> getUsuarios()
@@ -140,7 +140,7 @@ namespace Sistema.Generales
                 switch (model)
                 {
                     case "usuarios":
-                        using (DatabaseContext contextoLocal = new DatabaseContext("MYSQLLOCAL"))
+                        using (DatabaseContext contextoLocal = new DatabaseContext("MSSQL"))
                         {
                             List<usuarios> lista = (from i in contextoLocal.usuarios where i.importado == 0 select i).ToList();
                             if (lista.Count == 0)
