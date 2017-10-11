@@ -13,6 +13,9 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Sistema.DataModel;
 using Sistema.Generales;
+using System.Security.Cryptography;
+using System.IO;
+using System.Security;
 
 namespace test_app
 {
@@ -21,6 +24,7 @@ namespace test_app
         long sizeOfUpdate = 0;
         private bool conexion = false;
         bool flag = false;
+        List<string> files;
         SistemaAdministracion sadmon;
         TestConexion tsc;
         
@@ -36,7 +40,7 @@ namespace test_app
             txtApellido.Text = "";
             txtNombreFormal.Text = "";
             txtPass1.Text = "";
-            txtPass2.Text = "";
+            //txtPass2.Text = "";
             txtUsuario.Text = "";
 
             cargarGridUsuario();
@@ -46,6 +50,7 @@ namespace test_app
         private void AgregarUsuario_Load(object sender, EventArgs e)
         {
             //tsc = new TestConexion();
+            InitializeOpenFileDialog();
             if (SistemaAdministracion.Conexion)
             {
                 btnModoSinConexion.Text = "Modo sin Conexión";
@@ -56,23 +61,6 @@ namespace test_app
             }
             sadmon = new SistemaAdministracion();
             cargarGridUsuario();
-
-            //if (tsc.IsServerConnected())
-            //{
-            //    this.conexion = true;
-            //    sadmon = new SistemaAdministracion(this.conexion);
-            //    SistemaAdministracion.Conexion = true;
-            //    MessageBox.Show("Conexion Establecida");
-            //    cargarGridUsuario();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
-            //    this.conexion = false;
-            //    sadmon = new SistemaAdministracion(this.conexion);
-            //    SistemaAdministracion.Conexion = false;
-            //    cargarGridUsuario();
-            //}
 
             
 
@@ -100,12 +88,18 @@ namespace test_app
         {
             try
             {
+                string source = txtPass1.Text;
+                string hash = ""; 
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    hash = SistemaAdministracion.GetMd5Hash(md5Hash, source);                    
+                }
                 usuarios usr = new usuarios();
                 usr.nombre = txtNombre.Text;
                 usr.apellido = txtApellido.Text;
                 usr.nombre_formal = txtNombreFormal.Text;
                 usr.correo = txtUsuario.Text;
-                usr.contrasena = txtPass1.Text;
+                usr.contrasena = hash;
 
                 this.messageRes(sadmon.guardarUsuarios(usr));
                 
@@ -186,7 +180,14 @@ namespace test_app
         {
             try
             {
-                if (sadmon.sincronizarDatos())
+                bool res = false;
+                //for(int x = 0; x < 20; x++)
+                //{
+                //    res = sadmon.sincronizarDatos();
+
+                //}
+                res = sadmon.sincronizarDatos();
+                if (res)
                 {
                     MessageBox.Show("Datos Sincronizados Correctamentes");
                     this.recargar();
@@ -222,6 +223,58 @@ namespace test_app
                 
             }
             this.recargar();
+        }
+
+        private void InitializeOpenFileDialog()
+        {
+            // Set the file dialog to filter for graphics files.
+            this.openFileDialog1.Filter =
+                "Images (*.BMP;*.JPG;*.GIF)|*.BMP;*.JPG;*.GIF|" +
+                "All files (*.*)|*.*";
+
+            // Allow the user to select multiple images.
+            this.openFileDialog1.Multiselect = true;
+            this.openFileDialog1.Title = "My Image Browser";
+        }
+
+
+        private void btnArchivo_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = this.openFileDialog1.ShowDialog();
+            if (dr == System.Windows.Forms.DialogResult.OK)
+            {
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+"";
+                // Read the files
+                foreach (String file in openFileDialog1.FileNames)
+                {
+                    // Create a PictureBox.
+                    try
+                    {
+                        PictureBox pb = new PictureBox();
+                        Image loadedImage = Image.FromFile(file);
+                        files.Add(file);
+                        pb.Height = loadedImage.Height;
+                        pb.Width = loadedImage.Width;
+                        pb.Image = loadedImage;
+                        flowLayoutPanel1.Controls.Add(pb);
+                    }
+                    catch (SecurityException ex)
+                    {
+                        // The user lacks appropriate permissions to read files, discover paths, etc.
+                        MessageBox.Show("Security error. Please contact your administrator for details.\n\n" +
+                            "Error message: " + ex.Message + "\n\n" +
+                            "Details (send to Support):\n\n" + ex.StackTrace
+                        );
+                    }
+                    catch (Exception ex)
+                    {
+                        // Could not load the image - probably related to Windows file system permissions.
+                        MessageBox.Show("Cannot display the image: " + file.Substring(file.LastIndexOf('\\'))
+                            + ". You may not have permission to read the file, or " +
+                            "it may be corrupt.\n\nReported error: " + ex.Message);
+                    }
+                }
+            }
         }
     }
 }

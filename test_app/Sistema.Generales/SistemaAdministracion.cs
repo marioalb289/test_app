@@ -12,6 +12,7 @@ using System.Data.Entity.Infrastructure;
 using System.Data.Metadata.Edm;
 using System.Reflection;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace Sistema.Generales
 {
@@ -30,19 +31,32 @@ namespace Sistema.Generales
         public string inicializarBd(bool cnx)
         {
             Database.SetInitializer<DatabaseContext>(new CreateDatabaseIfNotExists<DatabaseContext>());
-            return cnx ? "MYSQLSERVER" : "MSSQL";
+            return cnx ? "MYSQLSERVER" : "MYSQLLOCAL";
             
         }
         public List<usuarios> getUsuarios()
         {
             try
             {
-                
-                //string source = "Hello World!";
-                //using (MD5 md5Hash = MD5.Create())
-                //{
-                //    string hash = GetMd5Hash(md5Hash, source);
-                //}
+
+                string source = "123456";
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    string hash = GetMd5Hash(md5Hash, source);
+
+                    Console.WriteLine("The MD5 hash of " + source + " is: " + hash + ".");
+
+                    Console.WriteLine("Verifying the hash...");
+
+                    if (VerifyMd5Hash(md5Hash, source, hash))
+                    {
+                        Console.WriteLine("The hashes are the same.");
+                    }
+                    else
+                    {
+                        Console.WriteLine("The hashes are not same.");
+                    }
+                }
                 using (DatabaseContext contexto = new DatabaseContext(inicializarBd(Conexion)))
                 {
                     List<usuarios> listaUsuarios = (from i in contexto.usuarios where i.importado == 0 orderby i.id descending select i).ToList();
@@ -54,11 +68,22 @@ namespace Sistema.Generales
                 throw ex;
             }
         }
+        public void guardarImagen(List<string> files)
+        {
+            foreach (string file in files)
+            {
+                //Bitmap myBitmap = new Bitmap("");
+                //myBitmap.Save();
 
+            }
+
+
+        }
         public int guardarUsuarios(usuarios data)
         {
             try
             {
+                
                 using (DatabaseContext contexto = new DatabaseContext(inicializarBd(Conexion)))
                 {        
                     contexto.usuarios.Add(data);
@@ -140,7 +165,7 @@ namespace Sistema.Generales
                 switch (model)
                 {
                     case "usuarios":
-                        using (DatabaseContext contextoLocal = new DatabaseContext("MSSQL"))
+                        using (DatabaseContext contextoLocal = new DatabaseContext("MYSQLLOCAL"))
                         {
                             List<usuarios> lista = (from i in contextoLocal.usuarios where i.importado == 0 select i).ToList();
                             if (lista.Count == 0)

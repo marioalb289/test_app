@@ -32,8 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtPass1 = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.txtPass2 = new System.Windows.Forms.TextBox();
             this.btnGuardar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.txtNombre = new System.Windows.Forms.TextBox();
@@ -47,6 +45,17 @@
             this.dgvUsuarios = new System.Windows.Forms.DataGridView();
             this.btnSincronizar = new System.Windows.Forms.Button();
             this.btnModoSinConexion = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox2 = new System.Windows.Forms.CheckBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.btnArchivo = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -84,23 +93,6 @@
             this.txtPass1.Name = "txtPass1";
             this.txtPass1.Size = new System.Drawing.Size(193, 23);
             this.txtPass1.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.Location = new System.Drawing.Point(660, 179);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(61, 35);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Repetir Contraseña";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // txtPass2
-            // 
-            this.txtPass2.Location = new System.Drawing.Point(740, 179);
-            this.txtPass2.Multiline = true;
-            this.txtPass2.Name = "txtPass2";
-            this.txtPass2.Size = new System.Drawing.Size(193, 23);
-            this.txtPass2.TabIndex = 4;
             // 
             // btnGuardar
             // 
@@ -194,9 +186,9 @@
             // dgvUsuarios
             // 
             this.dgvUsuarios.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvUsuarios.Location = new System.Drawing.Point(36, 258);
+            this.dgvUsuarios.Location = new System.Drawing.Point(36, 400);
             this.dgvUsuarios.Name = "dgvUsuarios";
-            this.dgvUsuarios.Size = new System.Drawing.Size(897, 220);
+            this.dgvUsuarios.Size = new System.Drawing.Size(897, 167);
             this.dgvUsuarios.TabIndex = 16;
             // 
             // btnSincronizar
@@ -219,11 +211,116 @@
             this.btnModoSinConexion.UseVisualStyleBackColor = true;
             this.btnModoSinConexion.Click += new System.EventHandler(this.btnModoSinConexion_Click);
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(33, 226);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Area";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(335, 226);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(54, 13);
+            this.label8.TabIndex = 22;
+            this.label8.Text = "Privilegios";
+            this.label8.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(413, 223);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(39, 23);
+            this.textBox2.TabIndex = 21;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(512, 226);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(28, 13);
+            this.label9.TabIndex = 24;
+            this.label9.Text = "SIGI";
+            this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(568, 223);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(39, 23);
+            this.textBox3.TabIndex = 23;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(651, 225);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(56, 17);
+            this.checkBox1.TabIndex = 25;
+            this.checkBox1.Text = "Activo";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // checkBox2
+            // 
+            this.checkBox2.AutoSize = true;
+            this.checkBox2.Location = new System.Drawing.Point(740, 226);
+            this.checkBox2.Name = "checkBox2";
+            this.checkBox2.Size = new System.Drawing.Size(55, 17);
+            this.checkBox2.TabIndex = 26;
+            this.checkBox2.Text = "Titular";
+            this.checkBox2.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Location = new System.Drawing.Point(110, 223);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(193, 21);
+            this.comboBox1.TabIndex = 27;
+            // 
+            // btnArchivo
+            // 
+            this.btnArchivo.Location = new System.Drawing.Point(728, 60);
+            this.btnArchivo.Name = "btnArchivo";
+            this.btnArchivo.Size = new System.Drawing.Size(99, 36);
+            this.btnArchivo.TabIndex = 28;
+            this.btnArchivo.Text = "Seleccionar Archivo";
+            this.btnArchivo.UseVisualStyleBackColor = true;
+            this.btnArchivo.Click += new System.EventHandler(this.btnArchivo_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(36, 268);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(897, 100);
+            this.flowLayoutPanel1.TabIndex = 30;
+            // 
             // AgregarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1025, 541);
+            this.ClientSize = new System.Drawing.Size(1025, 619);
+            this.Controls.Add(this.flowLayoutPanel1);
+            this.Controls.Add(this.btnArchivo);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.checkBox2);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.btnModoSinConexion);
             this.Controls.Add(this.btnSincronizar);
             this.Controls.Add(this.dgvUsuarios);
@@ -237,8 +334,6 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtNombre);
             this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.txtPass2);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.txtPass1);
             this.Controls.Add(this.label1);
@@ -258,8 +353,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtPass1;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtPass2;
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNombre;
@@ -273,5 +366,16 @@
         private System.Windows.Forms.DataGridView dgvUsuarios;
         private System.Windows.Forms.Button btnSincronizar;
         private System.Windows.Forms.Button btnModoSinConexion;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox2;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button btnArchivo;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }
