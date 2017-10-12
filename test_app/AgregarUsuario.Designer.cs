@@ -56,6 +56,11 @@
             this.btnArchivo = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAnterior = new System.Windows.Forms.Button();
+            this.btnSiguiente = new System.Windows.Forms.Button();
+            this.lblTotalPag = new System.Windows.Forms.Label();
+            this.btnUltimo = new System.Windows.Forms.Button();
+            this.btnPrimero = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -306,11 +311,65 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(897, 100);
             this.flowLayoutPanel1.TabIndex = 30;
             // 
+            // btnAnterior
+            // 
+            this.btnAnterior.Location = new System.Drawing.Point(238, 584);
+            this.btnAnterior.Name = "btnAnterior";
+            this.btnAnterior.Size = new System.Drawing.Size(75, 23);
+            this.btnAnterior.TabIndex = 31;
+            this.btnAnterior.Text = "Anterior";
+            this.btnAnterior.UseVisualStyleBackColor = true;
+            this.btnAnterior.Click += new System.EventHandler(this.btnAnterior_Click);
+            // 
+            // btnSiguiente
+            // 
+            this.btnSiguiente.Location = new System.Drawing.Point(486, 584);
+            this.btnSiguiente.Name = "btnSiguiente";
+            this.btnSiguiente.Size = new System.Drawing.Size(75, 23);
+            this.btnSiguiente.TabIndex = 32;
+            this.btnSiguiente.Text = "Siguiente";
+            this.btnSiguiente.UseVisualStyleBackColor = true;
+            this.btnSiguiente.Click += new System.EventHandler(this.btnSiguiente_Click);
+            // 
+            // lblTotalPag
+            // 
+            this.lblTotalPag.AutoSize = true;
+            this.lblTotalPag.Location = new System.Drawing.Point(372, 589);
+            this.lblTotalPag.Name = "lblTotalPag";
+            this.lblTotalPag.Size = new System.Drawing.Size(45, 13);
+            this.lblTotalPag.TabIndex = 33;
+            this.lblTotalPag.Text = "Páginas";
+            // 
+            // btnUltimo
+            // 
+            this.btnUltimo.Location = new System.Drawing.Point(582, 584);
+            this.btnUltimo.Name = "btnUltimo";
+            this.btnUltimo.Size = new System.Drawing.Size(75, 23);
+            this.btnUltimo.TabIndex = 34;
+            this.btnUltimo.Text = "Último";
+            this.btnUltimo.UseVisualStyleBackColor = true;
+            this.btnUltimo.Click += new System.EventHandler(this.btnUltimo_Click);
+            // 
+            // btnPrimero
+            // 
+            this.btnPrimero.Location = new System.Drawing.Point(143, 584);
+            this.btnPrimero.Name = "btnPrimero";
+            this.btnPrimero.Size = new System.Drawing.Size(75, 23);
+            this.btnPrimero.TabIndex = 35;
+            this.btnPrimero.Text = "Primero";
+            this.btnPrimero.UseVisualStyleBackColor = true;
+            this.btnPrimero.Click += new System.EventHandler(this.btnPrimero_Click);
+            // 
             // AgregarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1025, 619);
+            this.Controls.Add(this.btnPrimero);
+            this.Controls.Add(this.btnUltimo);
+            this.Controls.Add(this.lblTotalPag);
+            this.Controls.Add(this.btnSiguiente);
+            this.Controls.Add(this.btnAnterior);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Controls.Add(this.btnArchivo);
             this.Controls.Add(this.comboBox1);
@@ -377,5 +436,10 @@
         private System.Windows.Forms.Button btnArchivo;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
+        private System.Windows.Forms.Button btnAnterior;
+        private System.Windows.Forms.Button btnSiguiente;
+        private System.Windows.Forms.Label lblTotalPag;
+        private System.Windows.Forms.Button btnUltimo;
+        private System.Windows.Forms.Button btnPrimero;
     }
 }

@@ -16,6 +16,7 @@ using Sistema.Generales;
 using System.Security.Cryptography;
 using System.IO;
 using System.Security;
+using PagedList;
 
 namespace test_app
 {
@@ -27,6 +28,9 @@ namespace test_app
         List<string> files;
         SistemaAdministracion sadmon;
         TestConexion tsc;
+        int pageNumber = 1;
+        int totalPages = 0;
+        IPagedList<usuarios> listUsuarios;
         
 
         public AgregarUsuario()
@@ -41,8 +45,7 @@ namespace test_app
             txtNombreFormal.Text = "";
             txtPass1.Text = "";
             //txtPass2.Text = "";
-            txtUsuario.Text = "";
-
+            txtUsuario.Text = "";            
             cargarGridUsuario();
 
         }
@@ -66,11 +69,19 @@ namespace test_app
 
         }
 
-        private void cargarGridUsuario()
+        private async void cargarGridUsuario()
         {
             try
             {
-                dgvUsuarios.DataSource = new BindingSource(sadmon.getUsuarios(), null);
+                listUsuarios = await GetPagedListAsync();
+                btnPrimero.Enabled = !listUsuarios.IsFirstPage;
+                btnUltimo.Enabled = !listUsuarios.IsLastPage;
+                btnAnterior.Enabled = listUsuarios.HasPreviousPage;
+                btnSiguiente.Enabled = listUsuarios.HasNextPage;
+
+                dgvUsuarios.DataSource = new BindingSource(listUsuarios.ToList(), null);
+
+                lblTotalPag.Text = string.Format("Pág {0}/{1}",pageNumber, totalPages);
 
                 dgvUsuarios.Update();
                 dgvUsuarios.Refresh();
@@ -203,6 +214,7 @@ namespace test_app
 
         private void btnModoSinConexion_Click(object sender, EventArgs e)
         {
+            dgvUsuarios.Rows.Clear();
             if (SistemaAdministracion.Conexion)
             {
                 SistemaAdministracion.Conexion = false;
@@ -223,6 +235,21 @@ namespace test_app
                 
             }
             this.recargar();
+        }
+
+        private async Task<IPagedList<usuarios>> GetPagedListAsync(int pageNumber = 1, int pageSize = 10)
+        {
+            return await Task.Factory.StartNew(() =>
+            {
+                totalPages = sadmon.totalUsuarios();
+                if(totalPages > 0)
+                {
+                   double res = (double)totalPages / (double)pageSize;
+                   double flor = Math.Ceiling(res);
+                   totalPages = Convert.ToInt32(flor);
+                }
+                return sadmon.getUsuarios(pageNumber, pageSize);           
+            });
         }
 
         private void InitializeOpenFileDialog()
@@ -275,6 +302,87 @@ namespace test_app
                     }
                 }
             }
+        }
+
+        private async void btnAnterior_Click(object sender, EventArgs e)
+        {
+            if (listUsuarios.HasPreviousPage)
+            {
+                listUsuarios = await GetPagedListAsync(--pageNumber);
+                btnPrimero.Enabled = !listUsuarios.IsFirstPage;
+                btnUltimo.Enabled = true;
+                btnAnterior.Enabled = listUsuarios.HasPreviousPage;
+                btnSiguiente.Enabled = listUsuarios.HasNextPage;
+
+                dgvUsuarios.DataSource = new BindingSource(listUsuarios.ToList(), null);
+
+                lblTotalPag.Text = string.Format("Pág {0}/{1}", pageNumber, totalPages);
+
+                dgvUsuarios.Update();
+                dgvUsuarios.Refresh();
+            }
+
+        }
+
+        private async void btnSiguiente_Click(object sender, EventArgs e)
+        {
+            if (listUsuarios.HasNextPage)
+            {
+                listUsuarios = await GetPagedListAsync(++pageNumber);
+                btnPrimero.Enabled = true;
+                btnUltimo.Enabled = !listUsuarios.IsLastPage;
+                btnAnterior.Enabled = listUsuarios.HasPreviousPage;
+                btnSiguiente.Enabled = listUsuarios.HasNextPage;
+
+                dgvUsuarios.DataSource = new BindingSource(listUsuarios.ToList(), null);
+
+                lblTotalPag.Text = string.Format("Pág {0}/{1}", pageNumber, totalPages);
+
+                dgvUsuarios.Update();
+                dgvUsuarios.Refresh();
+            }
+
+        }
+
+        private async void btnPrimero_Click(object sender, EventArgs e)
+        {
+            
+            btnPrimero.Enabled = false;
+            btnUltimo.Enabled = true;
+            pageNumber = 1;
+
+            listUsuarios = await GetPagedListAsync(pageNumber);
+            btnAnterior.Enabled = listUsuarios.HasPreviousPage;
+            btnSiguiente.Enabled = listUsuarios.HasNextPage;
+
+            dgvUsuarios.DataSource = new BindingSource(listUsuarios.ToList(), null);
+
+            lblTotalPag.Text = string.Format("Pág {0}/{1}", pageNumber, totalPages);
+
+            dgvUsuarios.Update();
+            dgvUsuarios.Refresh();
+            
+        }
+
+        private async void btnUltimo_Click(object sender, EventArgs e)
+        {
+            
+            btnUltimo.Enabled = false;
+            btnPrimero.Enabled = true;
+            pageNumber = totalPages;
+
+            listUsuarios = await GetPagedListAsync(pageNumber);
+            btnAnterior.Enabled = listUsuarios.HasPreviousPage;
+            btnSiguiente.Enabled = listUsuarios.HasNextPage;
+
+            dgvUsuarios.DataSource = new BindingSource(listUsuarios.ToList(), null);
+
+            lblTotalPag.Text = string.Format("Pág {0}/{1}", pageNumber, totalPages);
+
+            dgvUsuarios.Update();
+            dgvUsuarios.Refresh();
+
+            
         }
     }
 }

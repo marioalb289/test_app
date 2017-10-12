@@ -13,6 +13,7 @@ using System.Data.Metadata.Edm;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing;
+using PagedList;
 
 namespace Sistema.Generales
 {
@@ -34,39 +35,48 @@ namespace Sistema.Generales
             return cnx ? "MYSQLSERVER" : "MYSQLLOCAL";
             
         }
-        public List<usuarios> getUsuarios()
+        public IPagedList<usuarios> getUsuarios(int pageNumber = 1, int pageSize = 10)
         {
             try
             {
 
-                string source = "123456";
-                using (MD5 md5Hash = MD5.Create())
-                {
-                    string hash = GetMd5Hash(md5Hash, source);
+                //string source = "123456";
+                //using (MD5 md5Hash = MD5.Create())
+                //{
+                //    string hash = GetMd5Hash(md5Hash, source);
 
-                    Console.WriteLine("The MD5 hash of " + source + " is: " + hash + ".");
+                //    Console.WriteLine("The MD5 hash of " + source + " is: " + hash + ".");
 
-                    Console.WriteLine("Verifying the hash...");
+                //    Console.WriteLine("Verifying the hash...");
 
-                    if (VerifyMd5Hash(md5Hash, source, hash))
-                    {
-                        Console.WriteLine("The hashes are the same.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("The hashes are not same.");
-                    }
-                }
+                //    if (VerifyMd5Hash(md5Hash, source, hash))
+                //    {
+                //        Console.WriteLine("The hashes are the same.");
+                //    }
+                //    else
+                //    {
+                //        Console.WriteLine("The hashes are not same.");
+                //    }
+                //}
                 using (DatabaseContext contexto = new DatabaseContext(inicializarBd(Conexion)))
                 {
-                    List<usuarios> listaUsuarios = (from i in contexto.usuarios where i.importado == 0 orderby i.id descending select i).ToList();
-                    return listaUsuarios;
+                    return contexto.usuarios.OrderBy(i => i.id).ToPagedList(pageNumber, pageSize);
+                    //List<usuarios> listaUsuarios = (from i in contexto.usuarios where i.importado == 0 orderby i.id descending select i).ToList();
+                    //return listaUsuarios;
                 }
             }
             catch (Exception ex)
             {
                 throw ex;
             }
+        }
+        public int totalUsuarios()
+        {
+            using (DatabaseContext contexto = new DatabaseContext(inicializarBd(Conexion)))
+            {
+                return contexto.usuarios.Count();
+            }
+
         }
         public void guardarImagen(List<string> files)
         {
