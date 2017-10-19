@@ -1,16 +1,16 @@
 ﻿namespace test_app
 {
-    partial class Form1
+    partial class MsgBox
     {
         /// <summary>
-        /// Variable del diseñador necesaria.
+        /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
-        /// Limpiar los recursos que se estén usando.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true si los recursos administrados se deben desechar; false en caso contrario.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,11 +20,11 @@
             base.Dispose(disposing);
         }
 
-        #region Código generado por el Diseñador de Windows Forms
+        #region Windows Form Designer generated code
 
         /// <summary>
-        /// Método necesario para admitir el Diseñador. No se puede modificar
-        /// el contenido de este método con el editor de código.
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
@@ -38,6 +38,7 @@
             this.bttRetry = new System.Windows.Forms.Button();
             this.bttIgnore = new System.Windows.Forms.Button();
             this.bttOk = new System.Windows.Forms.Button();
+            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             ((System.ComponentModel.ISupportInitialize)(this.picIcono)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,11 +72,12 @@
             // txtMensaje
             // 
             this.txtMensaje.BackColor = System.Drawing.Color.White;
+            this.txtMensaje.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtMensaje.Location = new System.Drawing.Point(85, 12);
             this.txtMensaje.Multiline = true;
             this.txtMensaje.Name = "txtMensaje";
             this.txtMensaje.ReadOnly = true;
-            this.txtMensaje.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtMensaje.Size = new System.Drawing.Size(402, 119);
             this.txtMensaje.TabIndex = 4;
             // 
@@ -139,10 +141,12 @@
             this.bttOk.Text = "Ok";
             this.bttOk.Click += new System.EventHandler(this.bttOk_Click);
             // 
-            // Form1
+            // MsgBox
             // 
             this.AcceptButton = this.bttAceptar;
             this.CancelButton = this.bttCancelar;
+            this.ClientSize = new System.Drawing.Size(490, 201);
+            this.ControlBox = false;
             this.Controls.Add(this.bttOk);
             this.Controls.Add(this.bttIgnore);
             this.Controls.Add(this.bttRetry);
@@ -156,12 +160,14 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Size = new System.Drawing.Size(500, 180);
+            this.Name = "MsgBox";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "MMessageBox";
-            this.Load += new System.EventHandler(this.Form1_Load);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MsgBox_FormClosed);
+            this.Load += new System.EventHandler(this.MsgBox_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picIcono)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -177,6 +183,6 @@
         private System.Windows.Forms.Button bttRetry;
         private System.Windows.Forms.Button bttIgnore;
         private System.Windows.Forms.Button bttOk;
+        private System.Windows.Forms.ColorDialog colorDialog1;
     }
 }
-

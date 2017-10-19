@@ -10,19 +10,14 @@ using System.Windows.Forms;
 
 namespace test_app
 {
-    public partial class Form1 : Form
+    public partial class MsgBox : Form
     {
-        public Form1()
-        {
-            InitializeComponent();
-        }
-
         Form mdi;
         System.Drawing.Point Punto1 = new System.Drawing.Point(229, 138);
         System.Drawing.Point Punto2 = new System.Drawing.Point(312, 138);
         System.Drawing.Point Punto3 = new System.Drawing.Point(395, 138);
 
-        public Form1(Form mdiParent, string strText)
+        public MsgBox(Form mdiParent, string strText)
         {
             InitializeComponent();
             //  this.MdiParent = mdiParent;
@@ -32,7 +27,7 @@ namespace test_app
             AdminIcon(MessageBoxIcon.None);
         }
 
-        public Form1(Form mdiParent, string strText, string strCaption)
+        public MsgBox(Form mdiParent, string strText, string strCaption)
         {
             InitializeComponent();
             //  this.MdiParent = mdiParent;
@@ -42,7 +37,7 @@ namespace test_app
             AdminIcon(MessageBoxIcon.None);
         }
 
-        public Form1(Form mdiParent, string strText, string strCaption, MessageBoxButtons enmButtons)
+        public MsgBox(Form mdiParent, string strText, string strCaption, MessageBoxButtons enmButtons)
         {
             InitializeComponent();
             //  this.MdiParent = mdiParent;
@@ -51,7 +46,7 @@ namespace test_app
             AdminBotones(enmButtons);
             AdminIcon(MessageBoxIcon.None);
         }
-        public Form1(Form mdiParent, string strText, MessageBoxButtons enmButtons, MessageBoxIcon enmIcon)
+        public MsgBox(Form mdiParent, string strText, MessageBoxButtons enmButtons, MessageBoxIcon enmIcon)
         {
             InitializeComponent();
             //  this.MdiParent = mdiParent;
@@ -61,7 +56,7 @@ namespace test_app
             AdminIcon(enmIcon);
             this.BringToFront();
         }
-        public Form1(Form mdiParent, string strText, string strCaption, MessageBoxButtons enmButtons, MessageBoxIcon enmIcon)
+        public MsgBox(Form mdiParent, string strText, string strCaption, MessageBoxButtons enmButtons, MessageBoxIcon enmIcon)
         {
             InitializeComponent();
             //  this.MdiParent = mdiParent;
@@ -99,17 +94,26 @@ namespace test_app
         }
         private void AdminIcon(MessageBoxIcon enmIcon)
         {
+            try
+            {
 
+                if (MessageBoxIcon.Asterisk == enmIcon) picIcono.Image = test_app.Properties.Resources.asterisk_59;// new ImageResourceHandle("asterisk_59.png");
+                if (MessageBoxIcon.Error == enmIcon) picIcono.Image = test_app.Properties.Resources.Error_60;
+                if (MessageBoxIcon.Exclamation == enmIcon) picIcono.Image = test_app.Properties.Resources.Information_64;
+                if (MessageBoxIcon.Hand == enmIcon) picIcono.Image = test_app.Properties.Resources.Hand50;
+                if (MessageBoxIcon.Information == enmIcon) picIcono.Image = test_app.Properties.Resources.Information_64;
+                if (MessageBoxIcon.None == enmIcon) picIcono.Image = null;
+                if (MessageBoxIcon.Question == enmIcon) picIcono.Image = test_app.Properties.Resources.question64;
+                if (MessageBoxIcon.Stop == enmIcon) picIcono.Image = test_app.Properties.Resources.Stop_63;
+                if (MessageBoxIcon.Warning == enmIcon) picIcono.Image = test_app.Properties.Resources.Warning_64;
 
-            //if (MessageBoxIcon.Asterisk == enmIcon) picIcono.Image = new ImageResourceHandle("asterisk_59.png");
-            //if (MessageBoxIcon.Error == enmIcon) picIcono.Image = new ImageResourceHandle("Error_60.png");
-            //if (MessageBoxIcon.Exclamation == enmIcon) picIcono.Image = new ImageResourceHandle("Information_64.png");
-            //if (MessageBoxIcon.Hand == enmIcon) picIcono.Image = new ImageResourceHandle("Hand50.png");
-            //if (MessageBoxIcon.Information == enmIcon) picIcono.Image = new ImageResourceHandle("Information_64.png");
-            //if (MessageBoxIcon.None == enmIcon) picIcono.Image = null;
-            //if (MessageBoxIcon.Question == enmIcon) picIcono.Image = new ImageResourceHandle("question64.png");
-            //if (MessageBoxIcon.Stop == enmIcon) picIcono.Image = new ImageResourceHandle("Stop_63.png");
-            //if (MessageBoxIcon.Warning == enmIcon) picIcono.Image = new ImageResourceHandle("Warning_64.png");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+            
         }
         private void AdminBotones(MessageBoxButtons enmButtons)
         {
@@ -203,8 +207,20 @@ namespace test_app
             this.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.Close();
         }
+        private void MsgBox_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            try
+            {
+                if (mdi != null) mdi.Focus();
+                this.Dispose();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void MsgBox_Load(object sender, EventArgs e)
         {
             try
             {
@@ -213,19 +229,6 @@ namespace test_app
             catch (Exception ex)
             {
 
-                throw ex;
-            }
-        }
-
-        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            try
-            {
-                //if (mdi != null) mdi.Focus();
-                this.Dispose();
-            }
-            catch (Exception ex)
-            {
                 throw ex;
             }
         }

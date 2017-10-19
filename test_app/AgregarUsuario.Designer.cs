@@ -61,6 +61,7 @@
             this.lblTotalPag = new System.Windows.Forms.Label();
             this.btnUltimo = new System.Windows.Forms.Button();
             this.btnPrimero = new System.Windows.Forms.Button();
+            this.btnSincronizarArchivo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvUsuarios)).BeginInit();
             this.SuspendLayout();
             // 
@@ -360,11 +361,23 @@
             this.btnPrimero.UseVisualStyleBackColor = true;
             this.btnPrimero.Click += new System.EventHandler(this.btnPrimero_Click);
             // 
+            // btnSincronizarArchivo
+            // 
+            this.btnSincronizarArchivo.Location = new System.Drawing.Point(622, 60);
+            this.btnSincronizarArchivo.Name = "btnSincronizarArchivo";
+            this.btnSincronizarArchivo.Size = new System.Drawing.Size(99, 36);
+            this.btnSincronizarArchivo.TabIndex = 39;
+            this.btnSincronizarArchivo.Text = "Sincronizar Archivos";
+            this.btnSincronizarArchivo.UseVisualStyleBackColor = true;
+            this.btnSincronizarArchivo.Click += new System.EventHandler(this.btnSincronizarArchivo_Click);
+            // 
             // AgregarUsuario
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(1025, 619);
+            this.Controls.Add(this.btnSincronizarArchivo);
             this.Controls.Add(this.btnPrimero);
             this.Controls.Add(this.btnUltimo);
             this.Controls.Add(this.lblTotalPag);
@@ -397,6 +410,7 @@
             this.Controls.Add(this.txtPass1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtUsuario);
+            this.DoubleBuffered = true;
             this.Name = "AgregarUsuario";
             this.Text = "AgregarUsuario";
             this.Load += new System.EventHandler(this.AgregarUsuario_Load);
@@ -441,5 +455,6 @@
         private System.Windows.Forms.Label lblTotalPag;
         private System.Windows.Forms.Button btnUltimo;
         private System.Windows.Forms.Button btnPrimero;
+        private System.Windows.Forms.Button btnSincronizarArchivo;
     }
 }

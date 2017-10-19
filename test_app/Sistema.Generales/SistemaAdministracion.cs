@@ -60,9 +60,9 @@ namespace Sistema.Generales
                 //}
                 using (DatabaseContext contexto = new DatabaseContext(inicializarBd(Conexion)))
                 {
-                    return contexto.usuarios.OrderBy(i => i.id).ToPagedList(pageNumber, pageSize);
-                    //List<usuarios> listaUsuarios = (from i in contexto.usuarios where i.importado == 0 orderby i.id descending select i).ToList();
-                    //return listaUsuarios;
+                    //return contexto.usuarios.OrderBy(i => i.id).ToPagedList(pageNumber, pageSize);
+                    return (from i in contexto.usuarios where i.importado == 0 orderby i.id descending select i).ToPagedList(pageNumber, pageSize);
+                    
                 }
             }
             catch (Exception ex)

@@ -17,6 +17,7 @@ using System.Security.Cryptography;
 using System.IO;
 using System.Security;
 using PagedList;
+using System.Net;
 
 namespace test_app
 {
@@ -31,11 +32,22 @@ namespace test_app
         int pageNumber = 1;
         int totalPages = 0;
         IPagedList<usuarios> listUsuarios;
-        
+        MsgBox msgBox;
+
+
 
         public AgregarUsuario()
         {
             InitializeComponent();
+
+            string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "";
+            string path = @desktop + "\\sice_archivos";
+            //This the list of random files we want to copy into a single new directory
+            //List<String> TempFiles = new List<String>();
+
+            List<String> TempFiles = Directory.GetFiles(path).ToList();
+            if (TempFiles.Count == 0)
+                btnSincronizarArchivo.Enabled = false;
         }
 
         public void recargar()
@@ -132,18 +144,25 @@ namespace test_app
             switch (res)
             {
                 case 1:
-                    MessageBox.Show("Datos Guardados correctamente");
+                    msgBox = new MsgBox(this, "Datos Guardados Correctamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    msgBox.ShowDialog(this);
+                    this.Focus();
+                    //MessageBox.Show("Datos Guardados correctamente");
                     this.recargar();
                     break;
                 case 2:
-                    MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
+                    msgBox = new MsgBox(this, "No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgBox.ShowDialog(this);
+                    //MessageBox.Show("No hay Conexion. \n Trabajndo en modo SIN CONEXIÓN");
                     this.recargar();
                     break;
                 case 3:
-                    MessageBox.Show("Error al Guardar los Datos.");
+                    msgBox = new MsgBox(this, "Error al Guardar los Datos.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    msgBox.ShowDialog(this);
+                    //MessageBox.Show("Error al Guardar los Datos.");
                     break;
             }
-            
+
         }
 
         public bool IsServerConnected()
@@ -177,7 +196,18 @@ namespace test_app
 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
+            Loading loading = new Loading(this);
+            loading.StartPosition = FormStartPosition.Manual;
+            loading.Location = new Point(this.Location.X + (this.Width - loading.Width) / 2, this.Location.Y + (this.Height - loading.Height) / 2);
+            loading.Show(this);
             this.agregarUsuario();
+
+            loading.Close();
+
+
+
+
+
         }
 
         private void btnActualizarSis_Click(object sender, EventArgs e)
@@ -267,38 +297,63 @@ namespace test_app
 
         private void btnArchivo_Click(object sender, EventArgs e)
         {
+            this.files = new List<string>();
             DialogResult dr = this.openFileDialog1.ShowDialog();
             if (dr == System.Windows.Forms.DialogResult.OK)
             {
                 string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)+"";
+                string path = @desktop+"\\sice_archivos";
                 // Read the files
+                int cont = 0;
                 foreach (String file in openFileDialog1.FileNames)
                 {
                     // Create a PictureBox.
                     try
                     {
-                        PictureBox pb = new PictureBox();
-                        Image loadedImage = Image.FromFile(file);
-                        files.Add(file);
-                        pb.Height = loadedImage.Height;
-                        pb.Width = loadedImage.Width;
-                        pb.Image = loadedImage;
-                        flowLayoutPanel1.Controls.Add(pb);
+                        if (!Directory.Exists(path))
+                        {
+                            // Try to create the directory.
+                            DirectoryInfo di = Directory.CreateDirectory(path);
+                            Console.WriteLine("The directory was created successfully at {0}.", Directory.GetCreationTime(path));
+                        }
+                        Console.WriteLine(openFileDialog1.SafeFileNames[cont]);
+                        string fName = openFileDialog1.SafeFileNames[cont];
+
+                        //var networkPath = @"\\192.168.1.146\test2";
+                        //var credentials = new NetworkCredential("estu2", "123");
+
+                        //using (new NetworkConnection(networkPath, credentials))
+                        //{
+                        //    System.IO.File.Copy(file, "\\\\192.168.1.146\\test2" + "\\" + "prueba.jpg",true);
+                        //}                        
+
+                        //then do whatever, such as getting a list of folders:
+                        //string[] theFolders = System.IO.Directory.GetDirectories("@\\computer\share");
+                        File.Copy(file, path+"\\"+"prueba.jpg",true);
+                        
+
+
+                        //this.files.Add(file);
+                        cont++;
                     }
                     catch (SecurityException ex)
                     {
                         // The user lacks appropriate permissions to read files, discover paths, etc.
-                        MessageBox.Show("Security error. Please contact your administrator for details.\n\n" +
-                            "Error message: " + ex.Message + "\n\n" +
-                            "Details (send to Support):\n\n" + ex.StackTrace
+                        MessageBox.Show("Error de Seguridad. Contacte al administrador para detalles.\n\n" +
+                            "Mensaje de Error: " + ex.Message + "\n\n" +
+                            "Detalles (notifcar para soporte):\n\n" + ex.StackTrace
                         );
+                    }
+                    catch (IOException copyError)
+                    {
+                        Console.WriteLine(copyError.Message);
                     }
                     catch (Exception ex)
                     {
                         // Could not load the image - probably related to Windows file system permissions.
-                        MessageBox.Show("Cannot display the image: " + file.Substring(file.LastIndexOf('\\'))
-                            + ". You may not have permission to read the file, or " +
-                            "it may be corrupt.\n\nReported error: " + ex.Message);
+                        MessageBox.Show("No se puede cargar la imagen: " + file.Substring(file.LastIndexOf('\\'))
+                            + ". Posiblemente no tenga permisos para leer el archivo, o " +
+                            "tal vez esta dañado.\n\nMensaje de Error: " + ex.Message);
                     }
                 }
             }
@@ -383,6 +438,73 @@ namespace test_app
             dgvUsuarios.Refresh();
 
             
+        }
+
+        private void btnSincronizarArchivo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "";
+                string path = @desktop + "\\sice_archivos";
+                //This the list of random files we want to copy into a single new directory
+                //List<String> TempFiles = new List<String>();
+
+                List<String> TempFiles = Directory.GetFiles(path).ToList();
+
+                if(TempFiles.Count > 0)
+                {
+                    var networkPath = @"\\192.168.1.146\test2\archivos";
+                    var credentials = new NetworkCredential("estu2", "123");
+
+                    using (new NetworkConnection(networkPath, credentials))
+                    {
+                        //I would recommend you put at least one large file in this folder
+                        //to see the progress bar in action.
+                        CopyFiles.CopyFiles Temp = new CopyFiles.CopyFiles(TempFiles, @"\\192.168.1.146\test2");
+
+                        //Uncomment the next line to copy the file tree.
+                        //CopyFiles.CopyFiles Temp = new CopyFiles.CopyFiles("C:\\Copy Test Folder", "C:\\Test");
+
+                        //Create the default Copy Files Dialog window from our Copy Files assembly
+                        //and sync it with our main/current thread
+                        CopyFiles.DIA_CopyFiles TempDiag = new CopyFiles.DIA_CopyFiles(this);
+                        TempDiag.SynchronizationObject = this;
+
+                        //Copy the files anysncrinsuly
+                        Temp.CopyAsync(TempDiag);
+
+                        //Uncomment this line to do a synchronous copy.
+                        ///Temp.Copy();
+                    }
+                }
+                else
+                {
+                    msgBox = new MsgBox(this, "No hay archivos para sincronizar", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    msgBox.ShowDialog(this);
+                    this.Focus();
+
+                }
+
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+            }
+           
+        }
+
+        private void cargando(object sender, ProgressChangeDelegate e)
+        {
+            //pgrBarSincronizar.Value = e.
+
+        }
+
+        private void subido(object sender, Completedelegate e)
+        {
+            MessageBox.Show("Completo");
+
         }
     }
 }
