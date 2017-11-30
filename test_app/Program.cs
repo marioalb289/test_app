@@ -14,11 +14,14 @@ namespace test_app
         [STAThread]
         static void Main()
         {
+           
+            System.Diagnostics.Debugger.Launch();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Sistema.Generales.TestConexion test = new Sistema.Generales.TestConexion();
             test.IsServerConnected();
             Application.Run(new AgregarUsuario());
+           
         }
     }
 }

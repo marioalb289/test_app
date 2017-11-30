@@ -42,8 +42,11 @@ namespace test_app
 
             string desktop = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + "";
             string path = @desktop + "\\sice_archivos";
-            //This the list of random files we want to copy into a single new directory
-            //List<String> TempFiles = new List<String>();
+            if (!Directory.Exists(path))
+            {
+                // Try to create the directory.
+                DirectoryInfo di = Directory.CreateDirectory(path);
+            }
 
             List<String> TempFiles = Directory.GetFiles(path).ToList();
             if (TempFiles.Count == 0)
@@ -329,11 +332,11 @@ namespace test_app
 
                         //then do whatever, such as getting a list of folders:
                         //string[] theFolders = System.IO.Directory.GetDirectories("@\\computer\share");
-                        File.Copy(file, path+"\\"+"prueba.jpg",true);
+                        File.Copy(file, path+"\\"+ fName, true);
                         
 
 
-                        //this.files.Add(file);
+                        this.files.Add(file);
                         cont++;
                     }
                     catch (SecurityException ex)
@@ -356,6 +359,10 @@ namespace test_app
                             "tal vez esta dañado.\n\nMensaje de Error: " + ex.Message);
                     }
                 }
+                btnSincronizarArchivo.Enabled = true;
+                msgBox = new MsgBox(this, "Archivos Guardados Correctamente", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                msgBox.ShowDialog(this);
+                this.Focus();
             }
         }
 
