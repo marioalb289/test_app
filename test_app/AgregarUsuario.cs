@@ -460,14 +460,14 @@ namespace test_app
 
                 if(TempFiles.Count > 0)
                 {
-                    var networkPath = @"\\192.168.1.146\test2\archivos";
-                    var credentials = new NetworkCredential("estu2", "123");
+                    var networkPath = @"\\192.168.1.146\sice_archivos";
+                    var credentials = new NetworkCredential("mario.canales@IEPCDGO.org", "Iepc2018");
 
                     using (new NetworkConnection(networkPath, credentials))
                     {
                         //I would recommend you put at least one large file in this folder
                         //to see the progress bar in action.
-                        CopyFiles.CopyFiles Temp = new CopyFiles.CopyFiles(TempFiles, @"\\192.168.1.146\test2");
+                        CopyFiles.CopyFiles Temp = new CopyFiles.CopyFiles(TempFiles, networkPath);
 
                         //Uncomment the next line to copy the file tree.
                         //CopyFiles.CopyFiles Temp = new CopyFiles.CopyFiles("C:\\Copy Test Folder", "C:\\Test");
@@ -481,7 +481,7 @@ namespace test_app
                         Temp.CopyAsync(TempDiag);
 
                         //Uncomment this line to do a synchronous copy.
-                        ///Temp.Copy();
+                        //Temp.Copy();
                     }
                 }
                 else
